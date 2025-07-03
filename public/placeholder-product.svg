@@ -1,0 +1,6 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#f3f4f6"/>
+  <path d="M82 88H118V124H82z" fill="#d1d5db"/>
+  <path d="M86 92H114V120H86z" fill="#9ca3af"/>
+  <text x="100" y="150" font-family="system-ui, -apple-system" font-size="14" fill="#6b7280" text-anchor="middle">No Image</text>
+</svg> 
