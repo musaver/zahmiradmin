@@ -63,6 +63,7 @@ export async function POST(req: NextRequest) {
       taxable, 
       metaTitle, 
       metaDescription,
+      metaKeywords,
       productType,
       variationAttributes,
       variants,
@@ -107,6 +108,7 @@ export async function POST(req: NextRequest) {
       taxable: taxable !== undefined ? taxable : true,
       metaTitle: metaTitle || null,
       metaDescription: metaDescription || null,
+      metaKeywords: metaKeywords || null,
       productType: productType || 'simple',
       variationAttributes: variationAttributes ? JSON.stringify(variationAttributes) : null,
     };

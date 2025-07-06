@@ -12,6 +12,7 @@ import {
   normalizeProductTags,
   deepParseJSON 
 } from '../../../../utils/jsonUtils';
+import { generateSlug } from '../../../../utils/slugUtils';
 
 interface DatabaseVariationAttribute {
   id: string;
@@ -88,6 +89,7 @@ export default function EditProduct() {
     taxable: true,
     metaTitle: '',
     metaDescription: '',
+    metaKeywords: '',
     productType: 'simple'
   });
   
@@ -160,6 +162,7 @@ export default function EditProduct() {
         taxable: product.taxable !== undefined ? product.taxable : true,
         metaTitle: product.metaTitle || '',
         metaDescription: product.metaDescription || '',
+        metaKeywords: product.metaKeywords || '',
         productType: product.productType || 'simple'
       });
       
@@ -257,9 +260,25 @@ export default function EditProduct() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+    const checked = (e.target as HTMLInputElement).checked;
+    
+    setFormData(prev => {
+      const newData = {
+        ...prev,
+        [name]: type === 'checkbox' ? checked : value
+      };
+      
+      // Auto-generate slug when name changes (only if slug is empty or matches previous auto-generated slug)
+      if (name === 'name' && value) {
+        const newSlug = generateSlug(value);
+        const currentSlugMatchesName = prev.slug === '' || prev.slug === generateSlug(prev.name);
+        
+        if (currentSlugMatchesName) {
+          newData.slug = newSlug;
+        }
+      }
+      
+      return newData;
     });
   };
 
@@ -961,6 +980,24 @@ export default function EditProduct() {
                 rows={3}
               />
             </div>
+          </div>
+          
+          <div className="mt-4">
+            <label className="block text-gray-700 mb-2" htmlFor="metaKeywords">
+              Meta Keywords
+            </label>
+            <input
+              type="text"
+              id="metaKeywords"
+              name="metaKeywords"
+              value={formData.metaKeywords}
+              onChange={handleChange}
+              className="w-full p-2 border rounded focus:border-blue-500 focus:outline-none"
+              placeholder="keyword1, keyword2, keyword3"
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              Enter keywords separated by commas for SEO optimization
+            </p>
           </div>
         </div>
         

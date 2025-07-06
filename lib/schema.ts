@@ -133,6 +133,7 @@ export const products = mysqlTable("products", {
   taxable: boolean("taxable").default(true),
   metaTitle: varchar("meta_title", { length: 255 }),
   metaDescription: text("meta_description"),
+  metaKeywords: text("meta_keywords"),
   
   // Variable Product Fields
   productType: varchar("product_type", { length: 50 }).default("simple"), // 'simple' or 'variable'
