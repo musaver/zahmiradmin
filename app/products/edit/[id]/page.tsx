@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import ImageUploader from '../../../components/ImageUploader';
+import RichTextEditor from '../../../components/RichTextEditor';
 import VariantManager from '../../../../components/VariantManager';
 import useProductVariants from '../../../../hooks/useProductVariants';
 import { formatPrice, calculatePriceRange } from '../../../../utils/priceUtils';
@@ -505,13 +506,11 @@ export default function EditProduct() {
               <label className="block text-gray-700 mb-2" htmlFor="description">
                 Description
               </label>
-              <textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                className="w-full p-2 border rounded focus:border-blue-500 focus:outline-none"
-                rows={4}
+              <RichTextEditor
+                content={formData.description}
+                onChange={(content) => setFormData(prev => ({ ...prev, description: content }))}
+                placeholder="Enter product description with rich formatting..."
+                disabled={submitting}
               />
             </div>
 
